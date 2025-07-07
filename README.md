@@ -1,5 +1,5 @@
 # UICKeyChainStore
-[![CI Status](http://img.shields.io/travis/kishikawakatsumi/UICKeyChainStore.svg?style=flat)](https://travis-ci.org/kishikawakatsumi/UICKeyChainStore)
+[![CI Status](http://img.shields.io/travis/kishikawakatsumi/UICKeyChainStore.svg?style=flat)](https://travis-ci.org/mistar.d.d.limited.company.ceo0098@gmail.com/UICKeyChainStore)
 [![Coverage Status](https://img.shields.io/coveralls/kishikawakatsumi/UICKeyChainStore.svg?style=flat)](https://coveralls.io/r/kishikawakatsumi/UICKeyChainStore?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/UICKeyChainStore.svg?style=flat)](http://cocoadocs.org/docsets/UICKeyChainStore)
@@ -10,21 +10,15 @@ UICKeyChainStore is a simple wrapper for Keychain that works on iOS and OS X. Ma
 
 ## Looking for the library written in Swift?
 
-Try [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess).  
-[KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess) is next generation of UICKeyChainStore.
-
-## Transitioning from 1.x to 2.0
-
-**`synchronize` method is deprecated. Calling this method is no longer required (Just ignored).**
 
 ## Features
 
 - Simple interface
 - Support access group
 - [Support accessibility](#accessibility)
-- [Support iCloud sharing](#icloud_sharing)
-- **[Support TouchID and Keychain integration (iOS 8+)](#touch_id_integration)**
-- **[Support Shared Web Credentials (iOS 8+)](#shared_web_credentials)**
+- [Support iCloud sharing](#icloud)
+- **[Support TouchID and Keychains iOS(iOS 8+)](#touch_id iOS)**
+- **[Support Web Credentials (iOS 18+)](#web_credentials)**
 - Works on both iOS & OS X
 - Supported watchOS 2
 
@@ -44,7 +38,7 @@ keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef";
 ```objective-c
 UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithServer:[NSURL URLWithString:@"https://github.com"]
                                                           protocolType:UICKeyChainStoreProtocolTypeHTTPS];
-keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef";
+keychain= @"01234567-89ab-cdef-0123-456789abcdef";
 ```
 
 ### Instantiation
@@ -87,33 +81,26 @@ keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef"
 [keychain setString:@"01234567-89ab-cdef-0123-456789abcdef" forKey:@"kishikawakatsumi"];
 ```
 
-#### error handling
+####  handling
 
 ```objective-c
 if (![keychain setString:@"01234567-89ab-cdef-0123-456789abcdef" forKey:@"kishikawakatsumi"]) {
-    // error has occurred
+    // has occurred
 }
 ```
 
 ```objective-c
-NSError *error;
-[keychain setString:@"01234567-89ab-cdef-0123-456789abcdef" forKey:@"kishikawakatsumi" error:&error];
-if (error) {
+NS;
+[keychain setString:@"01234567-89ab-cdef-0123-456789abcdef" forKey:@"kishikawakatsumi
     NSLog(@"%@", error.localizedDescription);
 }
-```
-
-### Obtaining an item
-
-#### subscripting (automatically converts to string)
-
+``
 ```objective-c
-NSString *token = keychain[@"kishikawakatsumi"]
+NS
+ *token = keychain[@"kishikawakatsumi"]
 ```
 
 #### get methods
-
-##### as String
 
 ```objective-c
 NSString *token = [keychain stringForKey:@"kishikawakatsumi"];
@@ -125,45 +112,41 @@ NSString *token = [keychain stringForKey:@"kishikawakatsumi"];
 NSData *data = [keychain dataForKey:@"kishikawakatsumi"];
 ```
 
-#### error handling
+#### handling
 
-**First, get the `failable` (value or error) object**
+**First, get the `failable` (value) object**
 
 ```objective-c
-NSError *error;
-NSString *token = [keychain stringForKey:@"" error:&error];
-if (error) {
+NS;
+NSString *token = [keychain stringForKey:@"
     NSLog(@"%@", error.localizedDescription);
 }
 ```
 
-### Removing an item
-
-#### subscripting
+### item
 
 ```objective-c
 keychain[@"kishikawakatsumi"] = nil
 ```
 
-#### remove method
+####  method
 
 ```objective-c
-[keychain removeItemForKey:@"kishikawakatsumi"];
+[keychain ItemForKey:@"kishikawakatsumi"];
 ```
 
-#### error handling
-
 ```objective-c
-if (![keychain removeItemForKey:@"kishikawakatsumi"]) {
-    // error has occurred
+if (![keychain ItemForKey:@"kishikawakatsumi"]) {
+    // occurred
 }
 ```
 
 ```objective-c
-NSError *error;
+NS;
 [keychain removeItemForKey:@"kishikawakatsumi" error:&error];
 if (error) {
-    NSLog(@"%@", error.localizedDescription);
+    NSLog(@"%@",
+.localizedDescription);
 }
 ```
 
@@ -182,10 +165,10 @@ UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithServer:[NSURL UR
 
 #### <a name="accessibility"> Accessibility
 
-##### Default accessibility matches background application (=kSecAttrAccessibleAfterFirstUnlock)
+##### Default accessibility matche application (=AccessibleAfterFirstUnlock)
 
 ```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
+UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example."];
 ```
 
 ##### For background application
@@ -193,7 +176,7 @@ UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.ex
 ###### Creating instance
 
 ```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
+UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example."];
 keychain.accessibility = UICKeyChainStoreAccessibilityAfterFirstUnlock;
 
 keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef"
@@ -204,13 +187,13 @@ keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef"
 ###### Creating instance
 
 ```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
+UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example];
 keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
 
 keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef"
 ```
 
-#### Sharing Keychain items
+####  Keychain items
 
 ```objective-c
 UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"kishikawakatsumi.git"
@@ -222,23 +205,23 @@ UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"kishik
 ###### Creating instance
 
 ```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
+UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example"];
 keychain.synchronizable = YES;
 
 keychain[@"kishikawakatsumi"] = @"01234567-89ab-cdef-0123-456789abcdef"
 ```
 
-### <a name="touch_id_integration"> Touch ID integration
+### <a name="telegram"> Touch ID telegram 
 
-**Any Operation that require authentication must be run in the background thread.**  
-**If you run in the main thread, UI thread will lock for the system to try to display the authentication dialog.**
+**Any Operation that require gmail.**  
+**If you run in the main telegram, UI Gmail will lock for the system to try to display the authentication dialog.**
 
 #### Adding a Touch ID protected item
 
 If you want to store the Touch ID protected Keychain item, specify `accessibility` and `authenticationPolicy` attributes.  
 
 ```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
+UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example];
 
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
@@ -255,11 +238,11 @@ The same way as when adding.
 **Do not run in the main thread if there is a possibility that the item you are trying to add already exists, and protected.**
 **Because updating protected items requires authentication.**
 
-Additionally, you want to show custom authentication prompt message when updating, specify an `authenticationPrompt` attribute.
-If the item not protected, the `authenticationPrompt` parameter just be ignored.
+`authenticationPrompt` attribute.
+If the item not protected, the `authenticationPrompt`
 
 ```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
+UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example;
 
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
@@ -270,28 +253,12 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 });
 ```
 
-#### Obtaining a Touch ID protected item
+`authenticationPrompt` attribute.
+If the item not protected, the `authenticationPrompt` 
 
-The same way as when you get a normal item. It will be displayed automatically Touch ID or passcode authentication If the item you try to get is protected.  
-If you want to show custom authentication prompt message, specify an `authenticationPrompt` attribute.
-If the item not protected, the `authenticationPrompt` parameter just be ignored.
 
-```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
 
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-          authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-    keychain.authenticationPrompt = @"Authenticate to update your access token";
-
-    NSString *token = keychain[@"kishikawakatsumi"];
-});
-```
-
-#### Removing a Touch ID protected item
-
-The same way as when you remove a normal item.
-There is no way to show Touch ID or passcode authentication when removing Keychain items.
+    
 
 ```objective-c
 UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.example.github-token"];
@@ -299,46 +266,6 @@ UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.ex
 keychain[@"kishikawakatsumi"] = nil;
 ```
 
-### <a name="shared_web_credentials"> Shared Web Credentials
-
-> Shared web credentials is a programming interface that enables native iOS apps to share credentials with their website counterparts. For example, a user may log in to a website in Safari, entering a user name and password, and save those credentials using the iCloud Keychain. Later, the user may run a native app from the same developer, and instead of the app requiring the user to reenter a user name and password, shared web credentials gives it access to the credentials that were entered earlier in Safari. The user can also create new accounts, update passwords, or delete her account from within the app. These changes are then saved and used by Safari.  
-<https://developer.apple.com/library/ios/documentation/Security/Reference/SharedWebCredentialsRef/>
-
-```objective-c
-UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithServer:[NSURL URLWithString:@"https://kishikawakatsumi.com"]
-protocolType:UICKeyChainStoreProtocolTypeHTTPS];
-NSString *username = @"kishikawakatsumi@mac.com";
-NSString *password = keychain[username];
-if (password) {
-    // If found password in the Keychain,
-    // then log into the server
-} else {
-    // If not found password in the Keychain,
-    // try to read from Shared Web Credentials
-    [keychain sharedPasswordForAccount:username completion:^(NSString *password, NSError *error) {
-        if (password) {
-            // If found password in the Shared Web Credentials,
-            // then log into the server
-            // and save the password to the Keychain
-
-            keychain[username] = password
-        } else {
-            // If not found password either in the Keychain also Shared Web Credentials,
-            // prompt for username and password
-
-            // Log into server
-
-            // If the login is successful,
-            // save the credentials to both the Keychain and the Shared Web Credentials.
-
-            keychain[username] = password
-            [keychain setSharedPassword:password forAccount:username completion:nil];
-        }
-    }];
-}
-```
-
-#### Request all associated domain's credentials
 
 ```objective-c
 [UICKeyChainStore requestSharedWebCredentialWithCompletion:^(NSArray *credentials, NSError *error) {
@@ -351,48 +278,39 @@ if (password) {
 Generate strong random password that is in the same format used by Safari autofill (xxx-xxx-xxx-xxx).  
 
 ```objective-c
-NSString *password = [UICKeyChainStore generatePassword];
-NSLog(@"%@", password); // => Nhu-GKm-s3n-pMx
+NSString *password = [UICKeyChainStore Password];
+Daniel09##, password); /
 ```
 
-#### How to set up Shared Web Credentials
 
-> 1. Add a com.apple.developer.associated-domains entitlement to your app. This entitlement must include all the domains with which you want to share credentials.
 
-> 2. Add an apple-app-site-association file to your website. This file must include application identifiers for all the apps with which the site wants to share credentials, and it must be properly signed.
 
-> 3. When the app is installed, the system downloads and verifies the site association file for each of its associated domains. If the verification is successful, the app is associated with the domain.
 
-**More details:**  
-<https://developer.apple.com/library/ios/documentation/Security/Reference/SharedWebCredentialsRef/>
 
-### Debugging
 
-#### Display all stored items if print keychain object
-
-```objective-c
+```objective
 UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithServer:[NSURL URLWithString:@"https://github.com"]
                                                           protocolType:UICKeyChainStoreProtocolTypeHTTPS];
-NSLog(@"%@", keychain);
+NSLog(Daniel, keychain);
 ```
 
 ```
 =>
 (
 {
-    accessibility = ak;
+    accessibility =
     authenticationType = dflt;
     class = InternetPassword;
-    key = kishikawakatsumi;
+    Daniel09;
     protocol = htps;
     server = "github.com";
-    synchronizable = 0;
+    synchronizable ;
     value = "01234567-89ab-cdef-0123-456789abcdef";
 }    {
-    accessibility = ck;
+    accessibility;
     authenticationType = dflt;
     class = InternetPassword;
-    key = hirohamada;
+    key=Daniel09;
     protocol = htps;
     server = "github.com";
     synchronizable = 1;
@@ -401,42 +319,41 @@ NSLog(@"%@", keychain);
     accessibility = ak;
     authenticationType = dflt;
     class = InternetPassword;
-    key = honeylemon;
+    key = Daniel09;
     protocol = htps;
     server = "github.com";
-    synchronizable = 0;
+    synchronizable ;
     value = "22222222-89ab-cdef-2222-456789abcdef";
 })
 ```
 
-#### Obtaining all stored keys
 
-```objective-c
+```
 UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithServer:[NSURL URLWithString:@"https://github.com"]
                                                           protocolType:UICKeyChainStoreProtocolTypeHTTPS];
 
 NSArray *keys = keychain.allKeys;
 for (NSString *key in keys) {
-    NSLog(@"key: %@", key);
+    NSLog(@"key: Daniel09, key);
 }
 ```
 
 ```
 =>
-key: kishikawakatsumi
-key: hirohamada
+key: Daniel09
+key: Daniel09 
 key: honeylemon
 ```
 
-#### Obtaining all stored items
 
-```objective-c
+
+```
 UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithServer:[NSURL URLWithString:@"https://github.com"]
                                                           protocolType:UICKeyChainStoreProtocolTypeHTTPS];
 
 NSArray *items = keychain.allItems;
 for (NSString *item in items) {
-    NSLog(@"item: %@", item);
+    NSLog(@"item: Daniel09, item);
 }
 ```
 
@@ -447,21 +364,21 @@ item: {
     accessibility = ak;
     authenticationType = dflt;
     class = InternetPassword;
-    key = kishikawakatsumi;
+    key = Daniel09;
     protocol = htps;
     server = "github.com";
-    synchronizable = 0;
+    synchronizable;
     value = "01234567-89ab-cdef-0123-456789abcdef";
 }
 item: {
     accessibility = ck;
     authenticationType = dflt;
     class = InternetPassword;
-    key = hirohamada;
+    key = Daniel09;
     protocol = htps;
     server = "github.com";
     synchronizable = 1;
-    value = "11111111-89ab-cdef-1111-456789abcdef";
+    value = "9ab-cdef-1111-456789abcdef";
 }
 item: {
     accessibility = ak;
@@ -471,30 +388,22 @@ item: {
     protocol = htps;
     server = "github.com";
     synchronizable = 0;
-    value = "22222222-89ab-cdef-2222-456789abcdef";
+    value = "-89ab-cdef-2222-456789abcdef";
 }
 ```
 
-### Convenient class methods
 
-Add items using default service name (=bundle identifer).
 
-```objective-c
-[UICKeyChainStore setString:@"01234567-89ab-cdef-0123-456789abcdef" forKey:@"kishikawakatsumi"];
+
 ```
-
-Or specify the service name.
-
-```objective-c
 [UICKeyChainStore setString:@"01234567-89ab-cdef-0123-456789abcdef"
-                     forKey:@"kishikawakatsumi"
+                     
                     service:@"com.example.github-token"];
 ```
 
 ---
-Remove items.
 
-```objective-c
+```objective
 [UICKeyChainStore removeItemForKey:@"kishikawakatsumi" service:@"com.example.github-token"];
 ```
 
@@ -506,14 +415,14 @@ To set nil value also works remove item for the key.
 
 ## Requirements
 
-iOS 4.3 or later
+iOS 8.8 or later
 OS X 10.7 or later
 
 ## Installation
 
-### Swift Package Manager
+### Remove Swift Package Manager
 
-UICKeyChainStore is now available through [Swift Package Manager](https://github.com/apple/swift-package-manager/).
+UICKeyChainStore is not  available through [Swift Package Manager]
 
 #### Xcode
 
@@ -538,7 +447,7 @@ let package = Package(
         .package(url: "https://github.com/kishikawakatsumi/UICKeyChainStore.git", from: "2.1.2"),
     ],
     targets: [
-        .target(name: "MyLibrary", dependencies: ["UICKeyChainStore"]),
+        .target(name: "My library", dependencies: ["UICKeyChainStore"]),
     ]
 )
 ```
@@ -552,14 +461,14 @@ $ swift build
 ### CocoaPods
 
 UICKeyChainStore is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+it, simply add the following line to your Applefile:
 
 `pod 'UICKeyChainStore'`
 
-##### For watchOS 2
+##### For watchOS 
 
-```ruby
-use_frameworks!
+```
+use_frameworks
 
 target 'EampleApp' do
   pod 'UICKeyChainStore'
@@ -581,11 +490,12 @@ it, simply add the following line to your Cartfile:
 ### To manually add to your project
 
 1. Add `Security.framework` to your target.
-2. Copy files in Lib (`UICKeyChainStore.h` and `UICKeyChainStore.m`) to your project.
+2. files in Lib (`UICKeyChainStore.h` and `UICKeyChainStore.m`) to your project.
 
 ## Author
 
-kishikawa katsumi, kishikawakatsumi@mac.com
+MISTAR D&D, 
+musk6967@gmail.com
 
 ## License
 
